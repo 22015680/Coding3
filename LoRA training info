@@ -1,0 +1,124 @@
+$pretrained_model = "./model/base_model.safetensors" # base model path 
+$train_data_dir = "./training/Coding3/image" # train dataset path 
+
+# Train related params 
+$resolution = "512,512" # image resolution w,h. 
+$batch_size = 1 # batch size
+$max_train_epoches = 10 # max train epoches | 
+$save_every_n_epochs = 5 # save every n epochs | 
+$network_dim = 128 # network dim | 
+$network_alpha = 128 # network alpha | 
+$clip_skip = 2 # clip skip | 
+$train_unet_only = 0 # train U-Net only | 
+$train_text_encoder_only = 0 # train Text Encoder only | 
+
+# Learning rate 
+$lr = "0.0001"
+$unet_lr = "0.0001"
+$text_encoder_lr = "1e-5"
+$lr_scheduler = "cosine_with_restarts" # "linear", "cosine", "cosine_with_restarts", "polynomial", "constant", "constant_with_warmup"
+$lr_warmup_steps = 0 # warmup steps | 
+$lr_restart_cycles = 1 # cosine_with_restarts restart cycles | 
+
+# Output settings | 
+$output_name = "ALHAITHAM" # output model name | 
+$save_model_as = "safetensors" # model save ext | 
+
+# other settings
+$network_weights = "" # pretrained weights for LoRA network | 
+$min_bucket_reso = 256 # arb min resolution | arb 
+$max_bucket_reso = 1024 # arb max resolution | arb 
+$persistent_data_loader_workers = 0 # persistent dataloader workers | 
+$noise_offset = 0.1 # noise offset | 
+
+# optimizer
+$use_8bit_adam = 1 # use 8bit adam optimizer | 
+$use_lion = 0 # use lion optimizer | 
+
+# LoCon training settings
+$enable_locon_train = 0 # enable LoCon train | 
+$conv_dim = 64 # conv dim | 
+$conv_alpha = 32 # conv alpha | 
+
+# ============= DO NOT MODIFY CONTENTS BELOW =====================
+# Activate python venv
+.\venv\Scripts\activate
+
+$Env:HF_HOME = "huggingface"
+$network_module = "networks.lora"
+$ext_args = [System.Collections.ArrayList]::new()
+
+if ($train_unet_only) {
+  [void]$ext_args.Add("--network_train_unet_only")
+}
+
+if ($train_text_encoder_only) {
+  [void]$ext_args.Add("--network_train_text_encoder_only")
+}
+
+if ($network_weights) {
+  [void]$ext_args.Add("--network_weights=" + $network_weights)
+}
+
+if ($reg_data_dir) {
+  [void]$ext_args.Add("--reg_data_dir=" + $reg_data_dir)
+}
+
+if ($use_8bit_adam) {
+  [void]$ext_args.Add("--use_8bit_adam")
+}
+
+if ($use_lion) {
+  [void]$ext_args.Add("--use_lion_optimizer")
+}
+
+if ($persistent_data_loader_workers) {
+  [void]$ext_args.Add("--persistent_data_loader_workers")
+}
+
+if ($enable_locon_train) {
+  $network_module = "locon.locon_kohya"
+  [void]$ext_args.Add("--network_args")
+  [void]$ext_args.Add("conv_dim=$conv_dim")
+  [void]$ext_args.Add("conv_alpha=$conv_alpha")
+}
+
+if ($noise_offset){
+  [void]$ext_args.Add("--noise_offset=$noise_offset")
+}
+
+# run train
+accelerate launch --num_cpu_threads_per_process=8 "./sd-scripts/train_network.py" `
+  --enable_bucket `
+  --pretrained_model_name_or_path=$pretrained_model `
+  --train_data_dir=$train_data_dir `
+  --output_dir="./output" `
+  --logging_dir="./logs" `
+  --resolution=$resolution `
+  --network_module=$network_module `
+  --max_train_epochs=$max_train_epoches `
+  --learning_rate=$lr `
+  --unet_lr=$unet_lr `
+  --text_encoder_lr=$text_encoder_lr `
+  --lr_scheduler=$lr_scheduler `
+  --lr_warmup_steps=$lr_warmup_steps `
+  --lr_scheduler_num_cycles=$lr_restart_cycles `
+  --network_dim=$network_dim `
+  --network_alpha=$network_alpha `
+  --output_name=$output_name `
+  --train_batch_size=$batch_size `
+  --save_every_n_epochs=$save_every_n_epochs `
+  --mixed_precision="fp16" `
+  --save_precision="fp16" `
+  --seed="1337" `
+  --cache_latents `
+  --clip_skip=$clip_skip `
+  --prior_loss_weight=1 `
+  --max_token_length=225 `
+  --caption_extension=".txt" `
+  --save_model_as=$save_model_as `
+  --min_bucket_reso=$min_bucket_reso `
+  --max_bucket_reso=$max_bucket_reso `
+  --xformers --shuffle_caption $ext_args
+Write-Output "Train finished"
+Read-Host | Out-Null ;
