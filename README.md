@@ -19,20 +19,26 @@ In addition, I used dataset-tool to remove the duplicate images and used stable 
 <p align="center">Samples in the dataset</p>
   
 When using the WebUI to crop and resize pictures, I still used deepbooru for caption, which was essential for tagging the pictures before training. In the tags of each picture, the character features tags should be removed because it can prevent overfitting by leading such contents included in the base model to LoRA. Besides, deleting tags can ensure character uniformity and retain character features, in order to align as closely as possible with specific characters. Editing the tags file needs to follow the formula of LoRA model + tag = training image. Therefore, I deleted relevant contents in the tags of each picture one by one. Afterward, I studied the tutorials, and training information of other models and tried to train my own model. I have trained four models. The training information is below:
-<div float="left">
-  <img src="/images/2.png"/ width="500" >
-  <p align="center">Model 1</p>
-  <img src="/images/3.png"/ width="500" > 
-  <p align="center">Model 2</p>
-</div>
-<div float="left">
-  <img src="/images/4.png"/ width="300" >
-  <p align="center">Model 3</p>
-</div>
-<div float="left">
-  <img src="/images/5.png"/ width="300" > 
-  <p align="center">Model 4</p>
-</div>
+<p float="left" align="center">
+  <img src="/images/2.png"/ width="500">
+  <br>
+  <span>Model 1</span>
+</p>
+<p float="left" align="center">
+  <img src="/images/3.png"/ width="500">
+  <br>
+  <span>Model 2</span>
+</p>
+<p float="left" align="center">
+  <img src="/images/4.png"/ width="500">
+  <br>
+  <span>Model 3</span>
+</p>
+<p float="left" align="center">
+  <img src="/images/5.png"/ width="500">
+  <br>
+  <span>Model 4</span>
+</p>
 
 I tested the results of these four model. It turned out to be below:
 <p float="left">
