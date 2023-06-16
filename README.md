@@ -1,7 +1,9 @@
 # Final Project
 
 Video Link: https://www.youtube.com/shorts/xaxLUWsybYU
+
 GitHub Link: https://github.com/22015680/Coding3
+
 Model Link: https://civitai.com/models/90901/zhongligenshinimpact
 
 ## Aim of my project
@@ -18,45 +20,45 @@ In addition, I used dataset-tool to remove the duplicate images and used stable 
   
 When using the WebUI to crop and resize pictures, I still used deepbooru for caption, which was essential for tagging the pictures before training. In the tags of each picture, the character features tags should be removed because it can prevent overfitting by leading such contents included in the base model to LoRA. Besides, deleting tags can ensure character uniformity and retain character features, in order to align as closely as possible with specific characters. Editing the tags file needs to follow the formula of LoRA model + tag = training image. Therefore, I deleted relevant contents in the tags of each picture one by one. Afterward, I studied the tutorials, and training information of other models and tried to train my own model. I have trained four models. The training information is below:
 <div float="left">
-  <img src="/images/2.png" width="100" />
+  <img src="/images/2.png"/>
   <p align="center">Model 1</p>
 </div>
 <div float="left">
-  <img src="/images/3.png" width="100" /> 
+  <img src="/images/3.png"/> 
   <p align="center">Model 2</p>
 </div>
 <div float="left">
-  <img src="/images/4.png" width="100" />
+  <img src="/images/4.png"/>
   <p align="center">Model 3</p>
 </div>
 <div float="left">
-  <img src="/images/5.png" width="100" /> 
+  <img src="/images/5.png"/> 
   <p align="center">Model 4</p>
 </div>
 
 I tested the results of these four model. It turned out to be below:
 <p float="left">
-  <img src="/images/6.png" width="70" />
-  <img src="/images/7.png" width="70" /> 
-  <img src="/images/8.png" width="70" /> 
+  <img src="/images/6.png"/>
+  <img src="/images/7.png"/> 
+  <img src="/images/8.png"/> 
 </p>
 <p align="center">Examples of first generation</p>
 <p float="left">
-  <img src="/images/9.png" width="70" />
-  <img src="/images/10.png" width="70" /> 
-  <img src="/images/11.png" width="70" /> 
+  <img src="/images/9.png"/>
+  <img src="/images/10.png"/> 
+  <img src="/images/11.png"/> 
 </p>
 <p align="center">Examples of second generation</p>
 <p float="left">
-  <img src="/images/12.png" width="70" />
-  <img src="/images/13.png" width="70" /> 
-  <img src="/images/14.png" width="70" /> 
+  <img src="/images/12.png"/>
+  <img src="/images/13.png"/> 
+  <img src="/images/14.png"/> 
 </p>
 <p align="center">Examples of third generation</p>
 <p float="left">
-  <img src="/images/15.png" width="70" />
-  <img src="/images/16.png" width="70" /> 
-  <img src="/images/17.png" width="70" /> 
+  <img src="/images/15.png"/>
+  <img src="/images/16.png"/> 
+  <img src="/images/17.png"/> 
 </p>
 <p align="center">Examples of fourth generation</p>
 
