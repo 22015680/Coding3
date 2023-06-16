@@ -77,7 +77,7 @@ After that, I imported the video into PR to extract each frame. Then, I rendered
 
 Finally, there is a check and adjustment of the images. Because the movement and transformation of the camera can make the image hard to recognize, especially those full-body shots far from the camera, SD generated incorrect human figures. Fortunately, I solved the problem by extracting most of the images in error and regenerated them by changing the parameter and deleting unnecessary prompts.
 
-## Result and Reflection
+## Result and reflection
 The project has successfully achieved a significant milestone: training a LoRA model adept at generating realistic animations of the character Zhongli. This was accomplished through a well-coordinated implementation of advanced technologies such as MikuMikuDance, Stable Diffusion, and ControlNet.
 
 The primary aim of the project was to create quality 3D animations from 2D anime-style images. I am pleased to note that the objective was accomplished with considerable success, especially with the first-generation model. It is capable of generating accurate character renditions without the requirement of inputting character feature prompts. This project holds potential in fields like game development, animation, and virtual reality.
